@@ -20,7 +20,7 @@ log = { version = "0.4.8", optional = true }
 [dependencies.image]
 version = "0.23"
 default-features = false
-features = ["gif", "jpeg", "png", "pnm", "tiff", "bmp"]
+features = ["png"]
 optional = true
 
 [features]

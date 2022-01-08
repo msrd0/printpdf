@@ -2,7 +2,7 @@
 
 use std::error::Error as IError;
 use std::io::Error as IoError;
-use owned_ttf_parser::FaceParsingError;
+use rusttype::Error as RusttypeError;
 use std::fmt;
 
 /// error_chain and failure are certainly nice, but completely overengineered
@@ -28,8 +28,8 @@ macro_rules! impl_from {
 pub enum Error {
     /// External: std::io::Error
     Io(IoError),
-    /// External: owned_ttf_parser::FaceParsingError
-    FaceParsing(FaceParsingError),
+    /// External: rusttype::Error
+    Rusttype(RusttypeError),
     /// PDF error
     Pdf(PdfError),
     /// Indexing error (please report if this happens, shouldn't happen)
@@ -70,7 +70,7 @@ impl fmt::Display for IndexError {
 impl IError for IndexError {}
 
 impl_from!(IoError, Error::Io);
-impl_from!(FaceParsingError, Error::FaceParsing);
+impl_from!(RusttypeError, Error::Rusttype);
 impl_from!(PdfError, Error::Pdf);
 impl_from!(IndexError, Error::Index);
 
@@ -79,7 +79,7 @@ impl fmt::Display for Error {
         use self::Error::*;
         match *self {
             Io(ref e) => write!(f, "{}", e),
-            FaceParsing(ref e) => write!(f, "{}", e),
+            Rusttype(ref e) => write!(f, "{}", e),
             Pdf(ref e) => write!(f, "{}", e),
             Index(ref e) => write!(f, "{}", e),
         }

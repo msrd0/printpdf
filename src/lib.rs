@@ -336,7 +336,7 @@ pub extern crate log;
 #[cfg(feature = "embedded_images")]
 pub extern crate image as image_crate;
 pub extern crate lopdf;
-extern crate owned_ttf_parser;
+extern crate rusttype;
 #[cfg(feature = "svg")]
 extern crate pdf_writer;
 extern crate time;
@@ -374,6 +374,7 @@ pub(crate) mod glob_defines {
 
     // Included files
     pub const ICC_PROFILE_ECI_V2: &[u8] = include_bytes!("../assets/CoatedFOGRA39.icc");
+pub use rusttype::Error as RusttypeError;
 
     /// ## General graphics state
 
